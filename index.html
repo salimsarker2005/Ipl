@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sports Hub - Live Matches</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9fcff;
+    }
+
+    header {
+      background: #000;
+      color: #ffd700;
+      text-align: center;
+      padding: 20px 0;
+      font-size: 30px;
+      font-weight: bold;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 30px auto;
+      padding: 10px;
+    }
+
+    .match-box {
+      background: #fff;
+      border: 2px solid #00c853;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .match-box.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .team {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .team img {
+      width: 50px;
+      margin-top: 5px;
+    }
+
+    .watch-box {
+      text-align: center;
+    }
+
+    .live-button {
+      background-color: #fff;
+      color: red;
+      font-weight: bold;
+      border: 2px solid red;
+      padding: 6px 14px;
+      border-radius: 30px;
+      font-size: 16px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      animation: pulseBorder 1.5s infinite;
+    }
+
+    .live-button .dot {
+      height: 10px;
+      width: 10px;
+      background-color: red;
+      border-radius: 50%;
+      animation: pulse 1.2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.5); opacity: 0.4; }
+      100% { transform: scale(1); opacity: 0.8; }
+    }
+
+    @keyframes pulseBorder {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.5); }
+      50% { box-shadow: 0 0 0 5px rgba(255, 0, 0, 0); }
+    }
+
+    .watch-text {
+      font-size: 12px;
+      color: #777;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    Sports Hub - Today's Live Matches
+  </header>
+
+  <div class="container">
+    <!-- IPL Match -->
+    <div class="match-box">
+      <div class="team">
+        Kolkata Knight Riders
+        <img src="https://upload.wikimedia.org/wikipedia/en/4/4a/Kolkata_Knight_Riders_Logo.svg" alt="KKR">
+      </div>
+      <div class="watch-box">
+        <button class="live-button" onclick="handleWatchClick(this)">
+          <span class="dot"></span>
+          LIVE
+        </button>
+        <div class="watch-text">Click once for ad, twice for live stream</div>
+      </div>
+      <div class="team">
+        <img src="https://upload.wikimedia.org/wikipedia/en/0/0c/Chennai_Super_Kings_Logo.svg" alt="CSK">
+        Chennai Super Kings
+      </div>
+    </div>
+
+    <!-- UEFA Match -->
+    <div class="match-box">
+      <div class="team">
+        Paris Saint-Germain
+        <img src="https://upload.wikimedia.org/wikipedia/en/a/a7/Paris_Saint-Germain_F.C..svg" alt="PSG">
+      </div>
+      <div class="watch-box">
+        <button class="live-button" onclick="handleWatchClick(this)">
+          <span class="dot"></span>
+          LIVE
+        </button>
+        <div class="watch-text">Click once for ad, twice for live stream</div>
+      </div>
+      <div class="team">
+        <img src="https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg" alt="Arsenal">
+        Arsenal
+      </div>
+    </div>
+  </div>
+
+  <!-- Separator Ad Image -->
+  <div class="separator" style="clear: both; padding-bottom: 40px;">
+    <a href="https://collisionshipwreckprocession.com/m7f2j0jek?key=fcacb436d914eea1ad9c19fce4c0c2e5" style="display: block; padding: 1em 0; text-align: center;">
+      <img 
+        src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiYAL45XqdYK-9u4zx5PZ1iDeY2PQ110r-03va0jS6Rnnet6OXkb-sQBLq8Tn9N0-WnGW5As8yJoeAhF0IJ-PASZ_0nypRaxl4fQOZX441oDaIA8weIIYBVdjbM45wLDXOk8wkROXGZDnd5Ry5W7RYQbMCh-Szhv__Vxv_bGyQ7AVYyARD2zS99B_MmmUow/s320/IMG_4389.jpeg" 
+        alt="Advertisement" 
+        width="320" 
+        style="max-width: 100%; height: auto; border: 0;"
+      />
+    </a>
+  </div>
+
+  <script>
+    function isInViewport(element) {
+      const rect = element.getBoundingClientRect();
+      return (
+        rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.bottom >= 0
+      );
+    }
+
+    function showVisibleElements() {
+      const boxes = document.querySelectorAll('.match-box');
+      boxes.forEach(box => {
+        if (isInViewport(box)) {
+          box.classList.add('visible');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', showVisibleElements);
+    window.addEventListener('load', showVisibleElements);
+
+    function handleWatchClick(button) {
+      if (!button.dataset.clickCount) {
+        button.dataset.clickCount = '1';
+        window.open('https://collisionshipwreckprocession.com/m7f2j0jek?key=fcacb436d914eea1ad9c19fce4c0c2e5', '_blank');
+      } else if (button.dataset.clickCount === '1') {
+        button.dataset.clickCount = '2';
+        window.open('https://collisionshipwreckprocession.com/x4b7d4uk8w?key=232df590b10b23622627d948dcbacf9d', '_blank');
+      } else {
+        window.open('https://collisionshipwreckprocession.com/x4b7d4uk8w?key=232df590b10b23622627d948dcbacf9d', '_blank');
+      }
+    }
+  </script>
+
+</body>
+</html>
